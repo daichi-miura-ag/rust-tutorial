@@ -1,3 +1,5 @@
+use std::rc::Rc;
+
 fn main() {
     println!("Hello, world!");
 
@@ -17,6 +19,16 @@ fn main() {
 
     let boxed_n = Box::new(5);
     println!("{}", boxed_n);
+
+    let rc1: Rc<String> = Rc::new(String::from("foo"));
+    println!("{}", Rc::strong_count(&rc1));
+    {
+        let rc2: Rc<String> = rc1.clone();
+        println!("{}", Rc::strong_count(&rc1));
+        println!("{}", Rc::strong_count(&rc2));
+    }
+    println!("{}", Rc::strong_count(&rc1));
+    println!("{}", rc1.len());
 }
 
 // structure; 構造体
